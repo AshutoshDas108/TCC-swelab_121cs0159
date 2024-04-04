@@ -23,10 +23,9 @@ public class Employee {
 
     private String password;
 
-    private Roles userRole = Roles.ROLE_ITSTAFF;
+    private Roles userRole = Roles.ROLE_IT_STAFF;
 
-    @ManyToOne
-    private BranchOffice branchOffice;
+    private Integer branchOfficeId;
 
     private Date dateOfJoining;
 

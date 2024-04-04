@@ -12,6 +12,6 @@ public interface TruckService {
 
     public List<Truck> getDetailOfAllTrucks();
 
-    public Truck updateTruckStatus();
+    public Truck updateTruck(Integer truckId);
 
 }

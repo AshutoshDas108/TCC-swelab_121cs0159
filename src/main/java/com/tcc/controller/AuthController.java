@@ -64,6 +64,7 @@ public class AuthController {
         createdEmp.setEmpName(emp.getEmpName());
         createdEmp.setDateOfJoining(new Date());
         createdEmp.setUserRole(emp.getUserRole());
+        createdEmp.setBranchOfficeId(emp.getBranchOfficeId());
         createdEmp.setPassword(passwordEncoder.encode(emp.getPassword()));
 
 
@@ -133,6 +134,9 @@ public class AuthController {
 
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
+
+
+
 
     /*
     Our own custom Authentication provider: authenticate() method (Default is DAO authentication provider)

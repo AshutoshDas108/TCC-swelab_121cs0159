@@ -22,6 +22,19 @@ public class JwtProvider {
                 .setIssuer("Ashutosh Das")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + 86400000))
+
+
+                /*
+                Since We want to identify users based on their token ... we need
+                to set some claims which are nothing but the information that we
+                want the token to carry so that we can extract it whenever needed
+
+                Here we are setting claims as email --> since we are interested in extracting
+                email from token then operate on users data based on that
+                 */
+                .claim("email", auth.getName())
+
+
                 .signWith(key)
                 .compact();
 
@@ -37,10 +50,7 @@ public class JwtProvider {
         we need to remove the word Bearer
          */
         jwt = jwt.substring(7);
-
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(key).build()
-                .parseClaimsJws(jwt).getBody();
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 
         String email = String.valueOf(claims.get("email"));
 
