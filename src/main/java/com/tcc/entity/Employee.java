@@ -1,12 +1,10 @@
 package com.tcc.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.time.LocalDateTime;
+
+import java.util.Date;
 
 @Entity
 @Getter
@@ -30,6 +28,6 @@ public class Employee {
     @ManyToOne
     private BranchOffice branchOffice;
 
-    private LocalDateTime dateOfJoining;
+    private Date dateOfJoining;
 
 }

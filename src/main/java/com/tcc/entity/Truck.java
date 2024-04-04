@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.sql.results.spi.LoadContexts;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,6 +43,11 @@ public class Truck {
     private String receiverAddress;
 
     /*
+    Distance Between Sender and Receiver Address
+     */
+    private Float distanceTravelled;
+
+    /*
     In which branch Office the truck
     is currently available
      */
@@ -63,10 +68,10 @@ public class Truck {
     private ArrayList<LocalDateTime> receivedAt;
 
     /*
-    the history of arrival and receiving
-    consignments are maintained to calculate
-    average idle time for the truck
+    the history of consignments are maintained
      */
+    private ArrayList<Integer> consignmentIds;
+
 
 
 }

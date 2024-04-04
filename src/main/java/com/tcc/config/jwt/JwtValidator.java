@@ -46,6 +46,9 @@ public class JwtValidator extends OncePerRequestFilter {
             }
         }
 
+        /*
+        Forward the request and response to the next series of filter
+         */
         filterChain.doFilter(request,response);
 
     }

@@ -28,6 +28,9 @@ public class Bill {
     @OneToOne
     private Consignment consignmentDetails;
 
+    /*
+
+     */
     private Float totalAmount;
 
 }

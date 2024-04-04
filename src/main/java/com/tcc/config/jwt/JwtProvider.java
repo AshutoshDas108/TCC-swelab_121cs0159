@@ -7,9 +7,11 @@ import org.springframework.data.domain.ScrollPosition;
 import javax.crypto.SecretKey;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+@Service
 public class JwtProvider {
 
     private static SecretKey key = Keys.hmacShaKeyFor(JwtConstants.SECREAT_KEY.getBytes());

@@ -21,7 +21,10 @@ public class Consignment {
 
     private Float Volume;
 
-    private Integer totalConsignments;
+    /*
+    Status of the consignment
+     */
+    private Boolean isDelivered;
 
     private String senderAddress;
 
