@@ -27,6 +27,9 @@ public class Employee {
 
     private Integer branchOfficeId;
 
+    @ManyToOne
+    private BranchOffice branchOffice;
+
     private Date dateOfJoining;
 
 }

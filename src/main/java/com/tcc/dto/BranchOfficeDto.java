@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class BranchOfficeDto {
-    private boolean isHeadOffice;
+    private Boolean isHeadOffice;
 
     private String loc;
 }

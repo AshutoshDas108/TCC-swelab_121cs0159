@@ -6,13 +6,13 @@ import com.tcc.entity.BranchOffice;
 public class BranchOfficeDtoMApper {
 
     public static BranchOfficeDto mapToBranchOfficeDto(BranchOffice bof, BranchOfficeDto bofDto){
-        bofDto.setHeadOffice(bof.isHeadOffice());
+        bofDto.setIsHeadOffice(bof.getIsHeadOffice());
         bofDto.setLoc(bof.getLoc());
         return bofDto;
     }
 
     public static BranchOffice mapToBranchOffice(BranchOffice bof, BranchOfficeDto bofDto){
-        bof.setHeadOffice(bofDto.isHeadOffice());
+        bof.setIsHeadOffice(bofDto.getIsHeadOffice());
         bof.setLoc(bofDto.getLoc());
         return bof;
     }

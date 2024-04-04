@@ -1,5 +1,6 @@
 package com.tcc.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import org.springframework.context.annotation.Primary;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,7 +22,7 @@ public class BranchOffice {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer branchId;
 
-    private boolean isHeadOffice;
+    private Boolean isHeadOffice;
 
     private String loc;
 
@@ -28,13 +30,20 @@ public class BranchOffice {
     Details of all the trucks that
     are currently present in the branch office
      */
-    @OneToMany(mappedBy = "branchOffice")
-    private ArrayList<Truck> trucks;
+    @JsonIgnore
+    @OneToMany(mappedBy = "branchOffice", cascade = CascadeType.ALL)
+    private List<Truck> trucks;
 
     /*
     Details of all the consignments that arrive at
     that particular branch office
      */
-    @OneToMany(mappedBy = "branchOffice")
-    private ArrayList<Consignment> consignments;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "branchOffice", cascade = CascadeType.ALL)
+    private List<Consignment> consignments;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "branchOffice", cascade = CascadeType.ALL)
+    private List<Employee> employees;
 }
