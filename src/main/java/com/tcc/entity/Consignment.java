@@ -30,6 +30,11 @@ public class Consignment {
 
     private String receiverAddress;
 
+    private String senderName;
+
+    private String receiverName;
+
+    private Float distanceBwSenderReceiver;
     /*
     Details of the branchOffice to which
     the consignment had arrived

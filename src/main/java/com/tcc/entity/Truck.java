@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +35,11 @@ public class Truck {
      */
     private Float consignmentVolume;
 
+    /*
+    Maximum volume the truck can accommodate
+     */
+    private Float Capacity;
+
     private String senderName;
 
     private String senderAddress;
@@ -58,19 +64,19 @@ public class Truck {
     Time at which the truck arrived at the
     new branch office everytime
      */
-    private ArrayList<LocalDateTime> arrivedAt;
+    private List<LocalDateTime> arrivedAt;
 
     /*
     Time at which the truck receives its
     first consignment after reaching the
     particular branch Office
      */
-    private ArrayList<LocalDateTime> receivedAt;
+    private List<LocalDateTime> receivedAt;
 
     /*
     the history of consignments are maintained
      */
-    private ArrayList<Integer> consignmentIds;
+    private List<Integer> consignmentIds;
 
 
 

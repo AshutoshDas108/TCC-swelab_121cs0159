@@ -128,6 +128,17 @@ public class EmployeeServiceImpl  implements EmployeeService {
     }
 
     @Override
+    public List<Employee> getEmployeeByBranchOffice(Integer branchId) throws Exception {
+        Optional<BranchOffice> optionalBranchOffice = branchOfficeRepository.findById(branchId);
+        if(optionalBranchOffice.isEmpty()){
+            throw new Exception("Branch Office Not Found With Id : " + branchId);
+        }
+        List<Employee> listOfEmp = optionalBranchOffice.get().getEmployees();
+
+        return listOfEmp;
+    }
+
+    @Override
     public List<Employee> getAllEmployee() {
         return employeeRepository.findAll();
     }

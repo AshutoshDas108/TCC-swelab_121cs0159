@@ -5,25 +5,29 @@ import com.tcc.service.BranchOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/*
-ALL FUNCTIONS RELATED TO THIS ARE
-ADMIN ACTIONS i.e. PERFORMED BY MANAGER
- */
+import java.util.List;
+
 @RestController
-@RequestMapping("/admin/api/office")
+@RequestMapping("/api")
 public class BranchOfficeController {
 
     @Autowired
     private BranchOfficeService branchOfficeService;
 
-    @PostMapping("/create")
-    public ResponseEntity<BranchOffice> createBranchOffice(@RequestBody BranchOffice office){
-      BranchOffice createdOffice =  branchOfficeService.createBranchOffice(office);
-      return new ResponseEntity<>(createdOffice, HttpStatus.CREATED);
+    @GetMapping("/offices")
+    public ResponseEntity<List<BranchOffice>> getAllOffices(){
+        List<BranchOffice> branchOffices = branchOfficeService.getAllBranchOffice();
+        return new ResponseEntity<>(branchOffices, HttpStatus.OK);
+    }
+
+    @GetMapping("/office/{id}")
+    public ResponseEntity<BranchOffice> getOfficeDetails(@PathVariable Integer id) throws Exception {
+        BranchOffice office = branchOfficeService.getBranchOfficeById(id);
+        return new ResponseEntity<>(office, HttpStatus.OK);
     }
 }

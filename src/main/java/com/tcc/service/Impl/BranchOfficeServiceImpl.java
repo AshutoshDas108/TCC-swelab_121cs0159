@@ -49,6 +49,16 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
     }
 
     @Override
+    public BranchOffice getBranchOfficeById(Integer id) throws Exception {
+        Optional<BranchOffice> office = branchOfficeRepository.findById(id);
+        if(office.isEmpty()){
+            throw new Exception("Office Not Found With ID : " + id);
+        }
+        BranchOffice branchOffice = office.get();
+        return branchOffice;
+    }
+
+    @Override
     public BranchOffice updateBranchOffice(Integer branchId, BranchOffice office) throws Exception {
         Optional<BranchOffice> off = branchOfficeRepository.findById(branchId);
         if(off.isEmpty()){
@@ -68,7 +78,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
     }
 
     @Override
-    public BranchOffice editTrucks(Integer branchId, Integer truckId) throws Exception {
+    public BranchOffice addTrucks(Integer branchId, Integer truckId) throws Exception {
         Optional<Truck> truckDb = truckRepository.findById(truckId);
         Optional<BranchOffice> bof = branchOfficeRepository.findById(branchId);
 
@@ -84,19 +94,46 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         Truck truck = truckDb.get();
 
         List<Truck> trucks = office.getTrucks();
-        if(trucks.contains(truck)){
-            trucks.remove(truck);
-        }
-        else{
-            trucks.add(truck);
-        }
+        trucks.add(truck);
 
         branchOfficeRepository.save(office);
         return  office;
     }
 
     @Override
-    public BranchOffice editConsignment(Integer branchId, Integer consId) throws Exception {
+    public BranchOffice deleteTrucks(Integer branchId, Integer truckId) throws Exception {
+        Optional<Truck> truckDb = truckRepository.findById(truckId);
+        Optional<BranchOffice> bof = branchOfficeRepository.findById(branchId);
+
+        if(bof.isEmpty()){
+            throw new Exception("Branch does not exist with Id :" + branchId);
+        }
+
+        if(truckDb.isEmpty()){
+            throw new Exception("Truck Not Found with Id :" + truckId);
+        }
+
+        BranchOffice office = bof.get();
+        Truck truck = truckDb.get();
+
+        List<Truck> trucks = office.getTrucks();
+
+        if(trucks.size() == 0){
+            throw new Exception("NO TRUCKS FOUND IN THE BRANCH OFFICE");
+        }
+
+        if(trucks.contains(truck)){
+            trucks.remove(truck);
+        }
+        else {
+            throw new Exception("Truck doesn't exist in the branch");
+        }
+        branchOfficeRepository.save(office);
+        return  office;
+    }
+
+    @Override
+    public BranchOffice addConsignment(Integer branchId, Integer consId) throws Exception {
         Optional<Consignment> consDb = consignmentRepository.findById(consId);
         Optional<BranchOffice> bof = branchOfficeRepository.findById(branchId);
 
@@ -112,11 +149,39 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         Consignment consg = consDb.get();
 
         List<Consignment> consgs = office.getConsignments();
+        consgs.add(consg);
+
+        branchOfficeRepository.save(office);
+        return  office;
+    }
+
+    @Override
+    public BranchOffice deleteConsignment(Integer branchId, Integer consId) throws Exception {
+        Optional<Consignment> consDb = consignmentRepository.findById(consId);
+        Optional<BranchOffice> bof = branchOfficeRepository.findById(branchId);
+
+        if(bof.isEmpty()){
+            throw new Exception("Branch does not exist with Id :" + branchId);
+        }
+
+        if(consDb.isEmpty()){
+            throw new Exception("Consignment Not Found with Id :" + consId);
+        }
+
+        BranchOffice office = bof.get();
+        Consignment consg = consDb.get();
+
+        List<Consignment> consgs = office.getConsignments();
+
+        if(consgs.size() == 0){
+            throw new Exception("NO CONSIGNMENTS ARRIVED AT THE BRANCH OFFICE");
+        }
+
         if(consgs.contains(consg)){
             consgs.remove(consg);
         }
         else{
-            consgs.add(consg);
+           throw new Exception("Consignment not present in the BranchOffice");
         }
 
         branchOfficeRepository.save(office);
@@ -124,7 +189,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
     }
 
     @Override
-    public BranchOffice editEmployees(Integer branchId, Integer empId) throws Exception {
+    public BranchOffice addEmployees(Integer branchId, Integer empId) throws Exception {
         Optional<Employee> empDb = employeeRepository.findById(empId);
         Optional<BranchOffice> bof = branchOfficeRepository.findById(branchId);
 
@@ -140,16 +205,41 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         Employee employee = empDb.get();
 
         List<Employee> employees = office.getEmployees();
-        if(employees.contains(employee)){
-            employees.remove(employee);
-        }
-        else{
-            employees.add(employee);
-        }
+        employees.add(employee);
 
         branchOfficeRepository.save(office);
         return  office;
     }
 
+    @Override
+    public BranchOffice deleteEmployees(Integer branchId, Integer empId) throws Exception {
+        Optional<Employee> empDb = employeeRepository.findById(empId);
+        Optional<BranchOffice> bof = branchOfficeRepository.findById(branchId);
 
+        if(bof.isEmpty()){
+            throw new Exception("Branch does not exist with Id :" + branchId);
+        }
+
+        if(empDb.isEmpty()){
+            throw new Exception("Employee Not Found with Id :" + empId);
+        }
+
+        BranchOffice office = bof.get();
+        Employee employee = empDb.get();
+
+        List<Employee> employees = office.getEmployees();
+
+        if(employees.size() == 0){
+            throw new Exception("NO EMPLOYEE WERE ASSIGNED TO BRANCH OFFICE ");
+        }
+        if(employees.contains(employee)){
+            employees.remove(employee);
+        }
+        else{
+            throw new Exception("Employee doesn't exist in the branch Office");
+        }
+
+        branchOfficeRepository.save(office);
+        return  office;
+    }
 }

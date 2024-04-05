@@ -15,6 +15,8 @@ public interface EmployeeService {
 
     public Employee getEmployeeById(Integer id);
 
+    public List<Employee>  getEmployeeByBranchOffice(Integer branchId) throws Exception;
+
     public List<Employee> getAllEmployee();
 
 

@@ -6,8 +6,11 @@ import com.tcc.entity.Consignment;
 import java.util.List;
 
 public interface ConsignmentService {
-    public Consignment getAllConsignmentDetails();
-    public List<Consignment> getConsignmentDetailById(Integer consId);
+    public Consignment createConsignment(Consignment consignment);
+    public List<Consignment> getAllConsignmentDetails();
+    public Consignment getConsignmentDetailById(Integer consId) throws Exception;
     public Bill generateTransportCost (Integer consId);
     public Consignment updateConsignment(Integer consId);
+    public Consignment assignTruck(Integer consId) throws Exception;
+    public Consignment assignOffice(Integer consId, Integer branchId) throws Exception;
 }
