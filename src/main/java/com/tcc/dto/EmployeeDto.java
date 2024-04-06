@@ -1,9 +1,8 @@
 package com.tcc.dto;
 
-import com.tcc.entity.Roles;
+import com.tcc.Types.Roles;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter

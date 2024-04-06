@@ -1,5 +1,6 @@
 package com.tcc.entity;
 
+import com.tcc.Types.BillType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,11 +26,21 @@ public class Bill {
     One Bill is related to a
     single consignment
      */
-    @OneToOne
-    private Consignment consignmentDetails;
+//    @OneToOne
+//    private Consignment consignmentDetails;
+
+    private String senderName;
+
+    private String receiverName;
+
+    private Float distanceCovered;
+
+    private BillType type;
 
     /*
-
+      Total Amount represents :
+      (i) Total revenue generated once the consignment is delivered ;
+      (ii) Total transport cost for the consignment
      */
     private Float totalAmount;
 

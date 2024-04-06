@@ -52,15 +52,18 @@ public class EmployeeServiceImpl  implements EmployeeService {
     THIS FUNCTION IS NOT NEEDED --> already email is extracted using jwt and that email is used to
     find the user
 
+    just to avoid repeated calling to the database we designed this function
+    */
+
     @Override
-    public Employee findEmployeeByEmail(String email) throws UsernameNotFoundException {
+    public Employee getEmployeeByEmail(String email) throws UsernameNotFoundException {
         Optional<Employee> emp = employeeRepository.findByEmail(email);
         if(emp.isEmpty()){
             throw new UsernameNotFoundException("Email does not exist....");
         }
         return emp.get();
     }
-     */
+
 
     @Override
     public Employee updateEmployee(Integer empId, Employee newEmp) throws UsernameNotFoundException {

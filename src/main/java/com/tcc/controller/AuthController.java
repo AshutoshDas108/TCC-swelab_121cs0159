@@ -3,7 +3,7 @@ package com.tcc.controller;
 import com.tcc.config.TccUserDetailService;
 import com.tcc.config.jwt.JwtProvider;
 import com.tcc.entity.Employee;
-import com.tcc.entity.Roles;
+import com.tcc.Types.Roles;
 import com.tcc.repository.EmployeeRepository;
 import com.tcc.request.LoginRequest;
 import com.tcc.response.AuthResponse;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;

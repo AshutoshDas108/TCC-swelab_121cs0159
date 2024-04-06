@@ -1,9 +1,12 @@
 package com.tcc.service.Impl;
 
+import com.tcc.Types.BillType;
+import com.tcc.constants.ProjectConstants;
 import com.tcc.entity.Bill;
 import com.tcc.entity.BranchOffice;
 import com.tcc.entity.Consignment;
 import com.tcc.entity.Truck;
+import com.tcc.repository.BillRepository;
 import com.tcc.repository.BranchOfficeRepository;
 import com.tcc.repository.ConsignmentRepository;
 import com.tcc.service.BranchOfficeService;
@@ -30,6 +33,9 @@ public class ConsignmentServiceImpl implements ConsignmentService {
 
     @Autowired
     private BranchOfficeRepository branchOfficeRepository;
+
+    @Autowired
+    private BillRepository billRepository;
 
     @Override
     public Consignment createConsignment(Consignment consignment) {
@@ -63,13 +69,40 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public Bill generateTransportCost(Integer consId) {
-        return null;
+    public Bill generateTransportCost(Integer consId) throws Exception {
+
+        Bill bill = new Bill();
+        Consignment consignment = getConsignmentDetailById(consId);
+
+        bill.setReceiverAddress(consignment.getReceiverAddress());
+        bill.setSenderAddress(consignment.getSenderAddress());
+        bill.setReceiverName(consignment.getReceiverName());
+        bill.setSenderName(consignment.getSenderName());
+        bill.setDistanceCovered(consignment.getDistanceBwSenderReceiver());
+        bill.setTotalAmount(calculateTransportCostForConsignment(consId));
+        bill.setType(BillType.TYPE_TRANSPORT_COST);
+        billRepository.save(bill);
+        return bill;
     }
 
     @Override
-    public Consignment updateConsignment(Integer consId) {
-        return null;
+    public Consignment updateConsignment(Integer consId, Consignment consignment) throws Exception {
+
+        Consignment oldConsignment = getConsignmentDetailById(consId);
+        if(consignment.getReceiverAddress() != null){
+            oldConsignment.setReceiverAddress(consignment.getReceiverAddress());
+        }
+        if(consignment.getReceiverName() != null){
+            oldConsignment.setReceiverName(consignment.getReceiverName());
+        }
+        if(consignment.getDistanceBwSenderReceiver() != null){
+            oldConsignment.setDistanceBwSenderReceiver(consignment.getDistanceBwSenderReceiver());
+        }
+        if(consignment.getIsDelivered() != true){
+            oldConsignment.setIsDelivered(true);
+        }
+        consignmentRepository.save(oldConsignment);
+        return oldConsignment;
     }
 
     @Override
@@ -105,4 +138,22 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         branchOfficeRepository.save(office);
         return consignment;
     }
+
+
+
+    /*
+    CALCULATE TOTAL TRANSPORT COST OF THE CONSIGNMENT :
+     */
+
+    private Float calculateTransportCostForConsignment(Integer consId) throws Exception {
+       Consignment consignment = getConsignmentDetailById(consId);
+       Float vol = consignment.getVolume();
+       Float dist = consignment.getDistanceBwSenderReceiver();
+       Float totalTransportCost = ProjectConstants.COST_PER_KILOMETRES*dist +
+               ProjectConstants.COST_TO_TRANSFER_PER_CUBIC_METRE_OF_CONSIGNMENT*vol;
+
+       return totalTransportCost;
+    }
 }
+
+

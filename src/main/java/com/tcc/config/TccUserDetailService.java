@@ -1,7 +1,7 @@
 package com.tcc.config;
 
 import com.tcc.entity.Employee;
-import com.tcc.entity.Roles;
+import com.tcc.Types.Roles;
 import com.tcc.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

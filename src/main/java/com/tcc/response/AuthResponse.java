@@ -1,6 +1,6 @@
 package com.tcc.response;
 
-import com.tcc.entity.Roles;
+import com.tcc.Types.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

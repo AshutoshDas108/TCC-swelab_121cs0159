@@ -1,5 +1,6 @@
 package com.tcc.entity;
 
+import com.tcc.Types.Roles;
 import jakarta.persistence.*;
 import lombok.*;
 

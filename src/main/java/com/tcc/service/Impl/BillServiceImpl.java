@@ -1,12 +1,12 @@
 package com.tcc.service.Impl;
 
-import com.tcc.service.BillService;
+import com.tcc.service.ReportDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
-public class BillServiceImpl implements BillService {
+public class BillServiceImpl implements ReportDetailsService {
     @Override
     public LocalDateTime idleTimeOfTuck(Integer truckId) {
         return null;
