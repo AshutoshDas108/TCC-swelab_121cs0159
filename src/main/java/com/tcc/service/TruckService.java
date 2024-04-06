@@ -14,7 +14,7 @@ public interface TruckService {
 
     public List<Truck> getDetailOfAllTrucks();
 
-    public Truck updateTruck(Integer truckId);
+//    public Truck updateTruck(Integer truckId);
 
     public Truck addConsignment(Integer truckId, Integer consId) throws Exception;
 

@@ -79,10 +79,10 @@ public class TruckServiceImpl implements TruckService {
         return truckRepository.findAll();
     }
 
-    @Override
-    public Truck updateTruck(Integer truckId) {
-        return null;
-    }
+//    @Override
+//    public Truck updateTruck(Integer truckId) {
+//        return null;
+//    }
 
     @Override
     public Truck addConsignment(Integer truckId, Integer consId) throws Exception {
