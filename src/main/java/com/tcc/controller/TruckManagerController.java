@@ -18,13 +18,13 @@ public class TruckManagerController {
     @PostMapping("/create")
     public ResponseEntity<Truck> createTruck(@RequestBody Truck truck){
         Truck createdTruck = truckService.createTruck(truck);
-        return new ResponseEntity<>(truck, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdTruck, HttpStatus.CREATED);
     }
 
     @PutMapping("/add/consignment/{cId}/{tId}")
-    public  ResponseEntity<Truck> addConsignment(@PathVariable("cId") Integer cId,
-                                                 @PathVariable("iId") Integer tId ) throws Exception {
-        Truck updatedTruck = truckService.addConsignment(tId, cId);
+    public  ResponseEntity<Object> addConsignment(@PathVariable("cId") Integer cId,
+                                                 @PathVariable("tId") Integer tId ) throws Exception {
+        Object updatedTruck = truckService.addConsignment(tId, cId);
         return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
     }
 

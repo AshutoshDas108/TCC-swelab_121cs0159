@@ -16,7 +16,7 @@ public interface TruckService {
 
 //    public Truck updateTruck(Integer truckId);
 
-    public Truck addConsignment(Integer truckId, Integer consId) throws Exception;
+    public Object addConsignment(Integer truckId, Integer consId) throws Exception;
 
    public Truck assignTruckToBranch(Integer truckId, Integer branchId) throws Exception;
 

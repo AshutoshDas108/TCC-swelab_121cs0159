@@ -47,19 +47,37 @@ public class TruckServiceImpl implements TruckService {
 
     @Override
     public Truck createTruck(Truck truck) {
+
         Truck createdTruck = new Truck();
-        if(truck.getCapacity() != null){
-            createdTruck.setCapacity(truck.getCapacity());
-        }
 
-//        List<LocalDateTime> arrivalTime = new ArrayList<>();
-//        arrivalTime.add(LocalDateTime.now());
-//        createdTruck.setArrivedAt(arrivalTime);
+        createdTruck.setCapacity(truck.getCapacity());
 
-        createdTruck.getArrivedAt().add(LocalDateTime.now());
+        List<LocalDateTime> arrivalTime = new ArrayList<>();
+        arrivalTime.add(LocalDateTime.now());
+
+        //DEBUG STATEMENTS:
+
+//        for(LocalDateTime t : arrivalTime){
+//            System.out.println(t);
+//        }
+        createdTruck.setArrivedAt(arrivalTime);
+
+        //DEBUG STATEMENTS
+      //  System.out.println(createdTruck.getArrivedAt());
+
+
+       /*
+       NULL POINTER EXCEPTION OCCURRED  IN THIS APPROACH:
+
+       createdTruck.getArrivedAt().add(LocalDateTime.now());
+
+        */
 
         createdTruck.setConsignmentVolume(0.0F);
         Truck savedTruck = truckRepository.save(createdTruck);
+
+        //DEBUG STATEMENTS
+       // System.out.println(savedTruck.getTruckId());
         return savedTruck;
     }
 
@@ -85,7 +103,7 @@ public class TruckServiceImpl implements TruckService {
 //    }
 
     @Override
-    public Truck addConsignment(Integer truckId, Integer consId) throws Exception {
+    public Object addConsignment(Integer truckId, Integer consId) throws Exception {
         Optional<Truck> truckOptional = truckRepository.findById(truckId);
         Optional<Consignment> consignmentOptional = consignmentRepository.findById(consId);
 
@@ -95,13 +113,31 @@ public class TruckServiceImpl implements TruckService {
         Truck truck = truckOptional.get();
         Consignment consignment = consignmentOptional.get();
 
-        truck.setConsignmentVolume(consignment.getVolume());
+        if(consignment.getTruck() != null){
+           return ("CONSIGNMENT ALREADY ASSIGNED TO ANOTHER TRUCK");
+        }
+
+        truck.setConsignmentVolume(truck.getConsignmentVolume() + consignment.getVolume());
         truck.setConsignmentReceived(consId);
-        truck.getConsignmentIds().add(consId);
-//        List<LocalDateTime> consignmentTimes = new ArrayList<>();
-//        consignmentTimes.add(LocalDateTime.now());
-//        truck.setReceivedAt(consignmentTimes);
-        truck.getReceivedAt().add(LocalDateTime.now());
+
+        if(truck.getConsignmentIds() == null){
+            List<Integer> consIds = new ArrayList<>();
+            consIds.add(consId);
+            truck.setConsignmentIds(consIds);
+        }
+        else {
+            truck.getConsignmentIds().add(consId);
+        }
+
+        if(truck.getReceivedAt() == null) {
+            List<LocalDateTime> consignmentTimes = new ArrayList<>();
+            consignmentTimes.add(LocalDateTime.now());
+            truck.setReceivedAt(consignmentTimes);
+        }
+        else {
+            truck.getReceivedAt().add(LocalDateTime.now());
+        }
+
         truck.setDistanceTravelled(consignment.getDistanceBwSenderReceiver());
         truck.setReceiverAddress(consignment.getReceiverAddress());
         truck.setReceiverName(consignment.getReceiverName());

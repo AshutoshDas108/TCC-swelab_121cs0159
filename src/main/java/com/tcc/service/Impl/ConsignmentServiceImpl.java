@@ -9,6 +9,7 @@ import com.tcc.entity.Truck;
 import com.tcc.repository.BillRepository;
 import com.tcc.repository.BranchOfficeRepository;
 import com.tcc.repository.ConsignmentRepository;
+import com.tcc.repository.TruckRepository;
 import com.tcc.service.BranchOfficeService;
 import com.tcc.service.ConsignmentService;
 import com.tcc.service.TruckService;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,9 @@ public class ConsignmentServiceImpl implements ConsignmentService {
 
     @Autowired
     private TruckService truckService;
+
+    @Autowired
+    private TruckRepository truckRepository;
 
     @Autowired
     private BranchOfficeService branchOfficeService;
@@ -106,8 +111,13 @@ public class ConsignmentServiceImpl implements ConsignmentService {
     }
 
     @Override
-    public Consignment assignTruck(Integer consId) throws Exception {
+    public Object assignTruck(Integer consId) throws Exception {
         Consignment consignment = getConsignmentDetailById(consId);
+
+        if(consignment.getTruck() != null){
+           return  ("CONSIGNMENT ALREADY ASSIGNED TO ANOTHER TRUCK");
+        }
+
         List<Truck> trucks = truckService.getDetailOfAllTrucks();
         for (Truck truck : trucks) {
             Float cap = truck.getCapacity();
@@ -116,6 +126,13 @@ public class ConsignmentServiceImpl implements ConsignmentService {
             Float consignmentVol = consignment.getVolume();
             if (availableVol >= consignmentVol) {
                 consignment.setTruck(truck);
+//                truck.setConsignmentVolume(load + consignmentVol);
+//                truck.setConsignmentReceived(consId);
+//                List<Integer> consignmentIds = new ArrayList<>();
+//                consignmentIds.add(consId);
+//                truck.setConsignmentIds(consignmentIds);
+                truckService.addConsignment(truck.getTruckId(), consId);
+                truckRepository.save(truck);
                 consignmentRepository.save(consignment);
                 break;
             }

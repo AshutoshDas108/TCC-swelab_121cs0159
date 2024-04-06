@@ -36,8 +36,8 @@ public class ConsignmentManagerController {
     }
 
     @PutMapping("/assign-truck/{id}")
-    public ResponseEntity<Consignment> assignTruck(@PathVariable Integer id) throws Exception {
-        Consignment consignment = consignmentService.assignTruck(id);
+    public ResponseEntity<Object> assignTruck(@PathVariable Integer id) throws Exception {
+       Object consignment = consignmentService.assignTruck(id);
         return new ResponseEntity<>(consignment, HttpStatus.OK);
     }
 

@@ -95,6 +95,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 
         List<Truck> trucks = office.getTrucks();
         trucks.add(truck);
+        truck.setBranchOffice(office);
 
         branchOfficeRepository.save(office);
         return  office;
@@ -124,6 +125,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 
         if(trucks.contains(truck)){
             trucks.remove(truck);
+            truck.setBranchOffice(null);
         }
         else {
             throw new Exception("Truck doesn't exist in the branch");
@@ -150,6 +152,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 
         List<Consignment> consgs = office.getConsignments();
         consgs.add(consg);
+        consg.setBranchOffice(office);
 
         branchOfficeRepository.save(office);
         return  office;
@@ -179,6 +182,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 
         if(consgs.contains(consg)){
             consgs.remove(consg);
+            consg.setBranchOffice(null);
         }
         else{
            throw new Exception("Consignment not present in the BranchOffice");
@@ -206,6 +210,8 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 
         List<Employee> employees = office.getEmployees();
         employees.add(employee);
+        employee.setBranchOfficeId(office.getBranchId());
+        employee.setBranchOffice(office);
 
         branchOfficeRepository.save(office);
         return  office;
@@ -234,6 +240,8 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         }
         if(employees.contains(employee)){
             employees.remove(employee);
+            employee.setBranchOffice(null);
+            employee.setBranchOfficeId(null);
         }
         else{
             throw new Exception("Employee doesn't exist in the branch Office");
