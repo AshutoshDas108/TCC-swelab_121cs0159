@@ -12,6 +12,7 @@ import com.tcc.service.BranchOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,8 +94,16 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         BranchOffice office = bof.get();
         Truck truck = truckDb.get();
 
-        List<Truck> trucks = office.getTrucks();
-        trucks.add(truck);
+        if(office.getTrucks() != null) {
+            List<Truck> trucks = office.getTrucks();
+            trucks.add(truck);
+        }
+        else{
+            List<Truck> truckList = new ArrayList<>();
+            truckList.add(truck);
+            office.setTrucks(truckList);
+        }
+
         truck.setBranchOffice(office);
 
         branchOfficeRepository.save(office);
@@ -150,8 +159,15 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         BranchOffice office = bof.get();
         Consignment consg = consDb.get();
 
-        List<Consignment> consgs = office.getConsignments();
-        consgs.add(consg);
+        if(office.getConsignments() != null) {
+            List<Consignment> consgs = office.getConsignments();
+            consgs.add(consg);
+        }
+        else{
+            List<Consignment> consignmentList = new ArrayList<>();
+            consignmentList.add(consg);
+            office.setConsignments(consignmentList);
+        }
         consg.setBranchOffice(office);
 
         branchOfficeRepository.save(office);
@@ -208,8 +224,15 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         BranchOffice office = bof.get();
         Employee employee = empDb.get();
 
-        List<Employee> employees = office.getEmployees();
-        employees.add(employee);
+        if(office.getEmployees() != null) {
+            List<Employee> employees = office.getEmployees();
+            employees.add(employee);
+        }
+        else{
+            List<Employee> employeeList = new ArrayList<>();
+            employeeList.add(employee);
+            office.setEmployees(employeeList);
+        }
         employee.setBranchOfficeId(office.getBranchId());
         employee.setBranchOffice(office);
 

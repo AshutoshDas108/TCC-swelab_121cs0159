@@ -33,55 +33,55 @@ public class BranchOfficeManagerController {
     }
 
 
-    @PutMapping("/office/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<BranchOffice> updateOffice(@PathVariable Integer id,
                                                      @RequestBody BranchOffice office) throws Exception {
         BranchOffice updateBranchOffice= branchOfficeService.updateBranchOffice(id, office);
         return new ResponseEntity<>(updateBranchOffice, HttpStatus.OK);
     }
 
-    @PutMapping("/office/add/truck/{oId}/{tId}")
-    public ResponseEntity<BranchOffice> addTruck(@PathVariable("oID") Integer oId,
+    @PutMapping("/add/truck/{oId}/{tId}")
+    public ResponseEntity<BranchOffice> addTruck(@PathVariable("oId") Integer oId,
                                                  @PathVariable("tId") Integer tId) throws Exception {
 
         BranchOffice office = branchOfficeService.addTrucks(oId, tId);
         return new ResponseEntity<>(office, HttpStatus.OK);
     }
 
-    @DeleteMapping("/office/delete/truck/{oId}/{tId}")
-    public ResponseEntity<BranchOffice> deleteTruck(@PathVariable("oID") Integer oId,
+    @PutMapping("/delete/truck/{oId}/{tId}")
+    public ResponseEntity<BranchOffice> deleteTruck(@PathVariable("oId") Integer oId,
                                                     @PathVariable("tId") Integer tId) throws Exception {
 
         BranchOffice office = branchOfficeService.deleteTrucks(oId, tId);
         return new ResponseEntity<>(office, HttpStatus.OK);
     }
 
-    @PutMapping("/office/add/consignment/{oId}/{cId}")
-    public ResponseEntity<BranchOffice> addConsignment(@PathVariable("oID") Integer oId,
+    @PutMapping("/add/consignment/{oId}/{cId}")
+    public ResponseEntity<BranchOffice> addConsignment(@PathVariable("oId") Integer oId,
                                                  @PathVariable("cId") Integer cId) throws Exception {
 
         BranchOffice office = branchOfficeService.addConsignment(oId, cId);
         return new ResponseEntity<>(office, HttpStatus.OK);
     }
 
-    @DeleteMapping("/office/delete/consignment/{oId}/{cId}")
-    public ResponseEntity<BranchOffice> deleteConsignment(@PathVariable("oID") Integer oId,
+    @PutMapping("/delete/consignment/{oId}/{cId}")
+    public ResponseEntity<BranchOffice> deleteConsignment(@PathVariable("oId") Integer oId,
                                                     @PathVariable("cId") Integer cId) throws Exception {
 
         BranchOffice office = branchOfficeService.deleteConsignment(oId, cId);
         return new ResponseEntity<>(office, HttpStatus.OK);
     }
 
-    @PutMapping("/office/add/emp/{oId}/{eId}")
-    public ResponseEntity<BranchOffice> addEmp(@PathVariable("oID") Integer oId,
+    @PutMapping("/add/emp/{oId}/{eId}")
+    public ResponseEntity<BranchOffice> addEmp(@PathVariable("oId") Integer oId,
                                                        @PathVariable("eId") Integer eId) throws Exception {
 
         BranchOffice office = branchOfficeService.addEmployees(oId, eId);
         return new ResponseEntity<>(office, HttpStatus.OK);
     }
 
-    @DeleteMapping("/office/delete/emp/{oId}/{eId}")
-    public ResponseEntity<BranchOffice> deleteEmp(@PathVariable("oID") Integer oId,
+    @PutMapping("/delete/emp/{oId}/{eId}")
+    public ResponseEntity<BranchOffice> deleteEmp(@PathVariable("oId") Integer oId,
                                                           @PathVariable("eId") Integer eId) throws Exception {
 
         BranchOffice office = branchOfficeService.deleteEmployees(oId, eId);
