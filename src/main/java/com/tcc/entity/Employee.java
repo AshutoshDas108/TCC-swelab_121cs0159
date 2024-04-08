@@ -24,7 +24,7 @@ public class Employee {
 
     private String password;
 
-    private Roles userRole = Roles.ROLE_IT_STAFF;
+    private Roles userRole = Roles.ROLE_ITSTAFF;
 
     private Integer branchOfficeId;
 

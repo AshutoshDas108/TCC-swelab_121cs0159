@@ -1,5 +1,8 @@
 package com.tcc.config.jwt;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,9 +11,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,21 +28,46 @@ public class JwtValidator extends OncePerRequestFilter {
 
         String jwt = request.getHeader(JwtConstants.JWT_HEADER);
 
+
         if(jwt != null){
+
+               /*
+              IMPORTANT TO REMOVE BEARER WORD FROM JWT TOKEN
+               */
+            jwt = jwt.substring(7);
+
             try{
+
+                SecretKey key = Keys.hmacShaKeyFor(JwtConstants.SECREAT_KEY.getBytes());
+                Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+
+                String email = String.valueOf(claims.get("email"));
+
+                String authorities = String.valueOf(claims.get("authorities"));
+
+                /*
+                string data : ROLE_CUSTOMER, ROLE_ADMIN (as a string)
+                Converting string into list of granted authorities
+                 */
+                List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
+
+                Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, authorityList);
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
 
                 /*
                 Extract the email from jwt token
                  */
-
-                String email = JwtProvider.getEmailFromJwt(jwt);
-
-                List<GrantedAuthority> authorities = new ArrayList<>();
-
-                Authentication authentication = new UsernamePasswordAuthenticationToken(email,
-                        null, authorities);
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                  //WHEN ROLES ARE NOT INVOLVED
+//                String email = JwtProvider.getEmailFromJwt(jwt);
+//
+//                List<GrantedAuthority> authorities = new ArrayList<>();
+//
+//                Authentication authentication = new UsernamePasswordAuthenticationToken(email,
+//                        null, authorities);
+//
+//                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             catch (Exception e){
 

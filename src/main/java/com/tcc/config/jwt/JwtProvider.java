@@ -7,9 +7,13 @@ import org.springframework.data.domain.ScrollPosition;
 import javax.crypto.SecretKey;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class JwtProvider {
@@ -17,6 +21,9 @@ public class JwtProvider {
     private static SecretKey key = Keys.hmacShaKeyFor(JwtConstants.SECREAT_KEY.getBytes());
 
     public static String generateToken(Authentication auth){
+
+        Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+        String roles = populateAuthorities(authorities);
 
         String jwt = Jwts.builder()
                 .setIssuer("Ashutosh Das")
@@ -34,6 +41,15 @@ public class JwtProvider {
                  */
                 .claim("email", auth.getName())
 
+                /*
+             jwt tokens can not store the authorities in
+             grantedAuthority format so, we need to convert it
+             to string using the populateAuthorities() function
+             and again convert the string back to GrantedAuthority
+             in CustomUserDetailService class
+              */
+                .claim("authorities", roles)
+
 
                 .signWith(key)
                 .compact();
@@ -41,6 +57,16 @@ public class JwtProvider {
         return jwt;
 
 
+    }
+
+    private static String populateAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        Set<String > auths = new HashSet<>();
+
+        for (GrantedAuthority grantedAuthority: authorities){
+
+            auths.add(grantedAuthority.getAuthority());
+        }
+        return String.join(",",auths);
     }
 
     public static String getEmailFromJwt(String jwt){

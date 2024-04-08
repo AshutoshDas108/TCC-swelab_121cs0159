@@ -269,7 +269,6 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         else{
             throw new Exception("Employee doesn't exist in the branch Office");
         }
-
         branchOfficeRepository.save(office);
         return  office;
     }
