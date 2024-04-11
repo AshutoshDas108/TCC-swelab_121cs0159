@@ -27,6 +27,7 @@ public class JwtValidator extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String jwt = request.getHeader(JwtConstants.JWT_HEADER);
+        System.out.println( "do filter chain jwt " + jwt);
 
 
         if(jwt != null){
@@ -35,15 +36,24 @@ public class JwtValidator extends OncePerRequestFilter {
               IMPORTANT TO REMOVE BEARER WORD FROM JWT TOKEN
                */
             jwt = jwt.substring(7);
+            System.out.println("do filter chain bearer removed" + jwt);
 
             try{
-
+                System.out.println("inside try 1");
                 SecretKey key = Keys.hmacShaKeyFor(JwtConstants.SECREAT_KEY.getBytes());
+                System.out.println("inside try 2");
                 Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+                System.out.println("inside try 3");
 
                 String email = String.valueOf(claims.get("email"));
-
+                System.out.println("email" + email);
                 String authorities = String.valueOf(claims.get("authorities"));
+
+//                String email = JwtProvider.getEmailFromJwt(jwt);
+//                System.out.println(email);
+//                String authorities = String.valueOf(claims.get("authorities"));
+//                System.out.println(authorities);
+
 
                 /*
                 string data : ROLE_CUSTOMER, ROLE_ADMIN (as a string)
@@ -71,6 +81,7 @@ public class JwtValidator extends OncePerRequestFilter {
             }
             catch (Exception e){
 
+                System.out.println("inside catch");
                 throw new BadCredentialsException("Invalid Token...");
 
             }

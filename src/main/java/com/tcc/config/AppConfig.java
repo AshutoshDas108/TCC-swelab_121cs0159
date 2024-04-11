@@ -14,9 +14,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 @Configuration
@@ -28,16 +26,29 @@ public class AppConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception{
-        http.sessionManagement(management -> management.sessionCreationPolicy
+
+//        http.cors(Customizer.withDefaults()) // Apply CORS configuration
+//                .csrf(csrf -> csrf.disable())
+//                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/admin/api/**").hasAnyRole("MANAGER")
+//                        .requestMatchers("/api/**").authenticated()
+//                        .anyRequest().permitAll())
+//                .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class);
+
+
+        http.
+                 cors(cors-> cors.configurationSource(corsConfigSource()))
+                  .csrf(csrf -> csrf.disable())
+                .sessionManagement(management -> management.sessionCreationPolicy
                 (SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/api/**").hasAnyRole("MANAGER")
                         .requestMatchers("/api/**")
                         .authenticated()
                         .anyRequest().permitAll())
-                .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
-                .csrf(csrf -> csrf.disable())
-                .cors(cors-> cors.configurationSource(corsConfigSource()));
+                .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class);
+
 
         return http.build();
     }
@@ -64,13 +75,13 @@ public class AppConfig {
                  */
                 cfg.setAllowedOrigins(Arrays.asList(
                         "http://localhost:3000",
-                        "http://localhost:4200"
+                        "http://localhost:5173"
                         //deployed app link
                 ));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setAllowCredentials(true);
-                cfg.setAllowedHeaders(Collections.singletonList("*"));
-                cfg.setExposedHeaders(Arrays.asList("Authorization"));
+                cfg.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+                cfg.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
                 cfg.setMaxAge(3600L);
                 return cfg;
             }

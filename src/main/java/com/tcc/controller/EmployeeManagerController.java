@@ -1,5 +1,7 @@
 package com.tcc.controller;
 
+import com.tcc.dto.EmployeeDto;
+import com.tcc.dto.mapper.EmployeeDtoMapper;
 import com.tcc.entity.BranchOffice;
 import com.tcc.entity.Employee;
 import com.tcc.service.BranchOfficeService;
@@ -32,6 +34,13 @@ public class EmployeeManagerController {
     public ResponseEntity<List<Employee>> getAllEmp(){
         List<Employee> employees = employeeService.getAllEmployee();
         return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<EmployeeDto> getEmpById(@PathVariable Integer id){
+        Employee employee = employeeService.getEmployeeById(id);
+        EmployeeDto employeeDto = EmployeeDtoMapper.mapToEmployeeDto(employee, new EmployeeDto());
+        return new ResponseEntity<>(employeeDto, HttpStatus.OK);
     }
 
     @GetMapping("/employees/branch/{id}")

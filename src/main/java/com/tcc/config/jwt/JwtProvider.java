@@ -54,6 +54,8 @@ public class JwtProvider {
                 .signWith(key)
                 .compact();
 
+        System.out.println("generated token " + jwt);
+
         return jwt;
 
 

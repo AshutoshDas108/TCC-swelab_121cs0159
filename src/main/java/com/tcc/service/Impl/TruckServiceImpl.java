@@ -122,11 +122,27 @@ public class TruckServiceImpl implements TruckService {
 
         if(truck.getConsignmentIds() == null){
             List<Integer> consIds = new ArrayList<>();
-            consIds.add(consId);
+            if(consignment.getTruck() == null) {
+                consignment.setTruck(truck);
+                consIds.add(consId);
+            }
+            else{
+                throw new Exception("Consignment alraedy assigned to a truck");
+            }
             truck.setConsignmentIds(consIds);
         }
         else {
-            truck.getConsignmentIds().add(consId);
+            if(consignment.getTruck() == null) {
+                consignment.setTruck(truck);
+                if(truck.getConsignmentIds().contains(consId)){
+                    throw new Exception("Consignment alraedy assigned to a truck");
+                }
+                truck.getConsignmentIds().add(consId);
+            }
+            else
+            {
+                throw new Exception("Consignment alraedy assigned to a truck");
+            }
         }
 
         if(truck.getReceivedAt() == null) {
