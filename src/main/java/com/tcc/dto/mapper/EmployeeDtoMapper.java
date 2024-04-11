@@ -16,6 +16,7 @@ public class EmployeeDtoMapper {
 //        }
         empDto.setDateOfJoining(emp.getDateOfJoining());
         empDto.setRole(emp.getUserRole());
+        empDto.setBranchOfficeId(emp.getBranchOfficeId());
 
         return  empDto;
     }
@@ -30,6 +31,7 @@ public class EmployeeDtoMapper {
 //        }
         emp.setUserRole(empDto.getRole());
         emp.setDateOfJoining(empDto.getDateOfJoining());
+        emp.setBranchOfficeId(empDto.getBranchOfficeId());
 
         return emp;
     }

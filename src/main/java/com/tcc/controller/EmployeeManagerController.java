@@ -37,10 +37,10 @@ public class EmployeeManagerController {
     }
 
     @GetMapping("/employees/{id}")
-    public ResponseEntity<EmployeeDto> getEmpById(@PathVariable Integer id){
+    public ResponseEntity<Employee> getEmpById(@PathVariable Integer id){
         Employee employee = employeeService.getEmployeeById(id);
-        EmployeeDto employeeDto = EmployeeDtoMapper.mapToEmployeeDto(employee, new EmployeeDto());
-        return new ResponseEntity<>(employeeDto, HttpStatus.OK);
+        //EmployeeDto employeeDto = EmployeeDtoMapper.mapToEmployeeDto(employee, new EmployeeDto());
+        return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @GetMapping("/employees/branch/{id}")

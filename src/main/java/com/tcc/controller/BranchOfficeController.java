@@ -1,5 +1,7 @@
 package com.tcc.controller;
 
+import com.tcc.dto.BranchOfficeDto;
+import com.tcc.dto.mapper.BranchOfficeDtoMapper;
 import com.tcc.entity.BranchOffice;
 import com.tcc.service.BranchOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,9 @@ public class BranchOfficeController {
     }
 
     @GetMapping("/office/{id}")
-    public ResponseEntity<BranchOffice> getOfficeDetails(@PathVariable Integer id) throws Exception {
+    public ResponseEntity<BranchOfficeDto> getOfficeDetails(@PathVariable Integer id) throws Exception {
         BranchOffice office = branchOfficeService.getBranchOfficeById(id);
-        return new ResponseEntity<>(office, HttpStatus.OK);
+        BranchOfficeDto officeDto = BranchOfficeDtoMapper.boffToDto(office, new BranchOfficeDto());
+        return new ResponseEntity<>(officeDto, HttpStatus.OK);
     }
 }
