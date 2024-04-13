@@ -44,4 +44,5 @@ public class Bill {
      */
     private Float totalAmount;
 
+
 }

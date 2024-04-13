@@ -103,9 +103,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         if(consignment.getDistanceBwSenderReceiver() != null){
             oldConsignment.setDistanceBwSenderReceiver(consignment.getDistanceBwSenderReceiver());
         }
-        if(consignment.getIsDelivered() != true){
-            oldConsignment.setIsDelivered(true);
-        }
+        oldConsignment.setIsDelivered(!oldConsignment.getIsDelivered());
         consignmentRepository.save(oldConsignment);
         return oldConsignment;
     }

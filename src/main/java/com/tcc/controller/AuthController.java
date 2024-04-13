@@ -46,7 +46,7 @@ public class AuthController {
     /*
     SIGN UP ENDPOINT
      */
-    @PostMapping("/sign-up")
+    @PostMapping("/admin/sign-up")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody Employee emp) throws Exception {
 
         Optional<Employee> isEmailExist = employeeRepository.findByEmail(emp.getEmail());
