@@ -30,11 +30,7 @@ public class EmployeeManagerController {
         return new ResponseEntity<>(emp, HttpStatus.OK);
     }
 
-    @GetMapping("/employees")
-    public ResponseEntity<List<Employee>> getAllEmp(){
-        List<Employee> employees = employeeService.getAllEmployee();
-        return new ResponseEntity<>(employees, HttpStatus.OK);
-    }
+
 
     @GetMapping("/employees/{id}")
     public ResponseEntity<Employee> getEmpById(@PathVariable Integer id){
