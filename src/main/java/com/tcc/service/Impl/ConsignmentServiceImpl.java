@@ -52,6 +52,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         createdConsignment.setReceiverName(consignment.getReceiverName());
         createdConsignment.setVolume(consignment.getVolume());
         createdConsignment.setIsDelivered(false);
+        createdConsignment.setIsBillGenerated(false);
         createdConsignment.setArrivedAt(LocalDateTime.now());
 
         Consignment savedConsignment = consignmentRepository.save(createdConsignment);
@@ -79,6 +80,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         Bill bill = new Bill();
         Consignment consignment = getConsignmentDetailById(consId);
 
+        consignment.setIsBillGenerated(true);
         bill.setReceiverAddress(consignment.getReceiverAddress());
         bill.setSenderAddress(consignment.getSenderAddress());
         bill.setReceiverName(consignment.getReceiverName());
@@ -152,6 +154,13 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         consignmentRepository.save(consignment);
         branchOfficeRepository.save(office);
         return consignment;
+    }
+
+    @Override
+    public String deleteConsignments() {
+        consignmentRepository.deleteAll();
+        billRepository.deleteAll();
+        return "ALL CONSIGNMENTS ARE DELETED";
     }
 
 

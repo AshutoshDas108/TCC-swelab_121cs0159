@@ -26,6 +26,8 @@ public class Consignment {
      */
     private Boolean isDelivered;
 
+    private Boolean isBillGenerated;
+
     private String senderAddress;
 
     private String receiverAddress;

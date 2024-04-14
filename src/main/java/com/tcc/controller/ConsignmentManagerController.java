@@ -49,4 +49,11 @@ public class ConsignmentManagerController {
     }
 
 
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<String> deleteAllConsignments(){
+        String resp  = consignmentService.deleteConsignments();
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+
 }

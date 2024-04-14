@@ -13,4 +13,5 @@ public interface ConsignmentService {
     public Consignment updateConsignment(Integer consId, Consignment consignment) throws Exception;
     public Object assignTruck(Integer consId) throws Exception;
     public Consignment assignOffice(Integer consId, Integer branchId) throws Exception;
+    public String deleteConsignments();
 }
