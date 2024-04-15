@@ -120,7 +120,13 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         List<Truck> trucks = truckService.getDetailOfAllTrucks();
         for (Truck truck : trucks) {
             Float cap = truck.getCapacity();
+            if(cap==null){
+                cap=0.0F;
+            }
             Float load = truck.getConsignmentVolume();
+            if(load == null){
+                load = 0.0F;
+            }
             Float availableVol = cap - load;
             Float consignmentVol = consignment.getVolume();
             if (availableVol >= consignmentVol) {
@@ -130,7 +136,8 @@ public class ConsignmentServiceImpl implements ConsignmentService {
 //                List<Integer> consignmentIds = new ArrayList<>();
 //                consignmentIds.add(consId);
 //                truck.setConsignmentIds(consignmentIds);
-                truckService.addConsignment(truck.getTruckId(), consId);
+                //truckService.addConsignment(truck.getTruckId(), consId);
+                truck.setConsignmentVolume(truck.getConsignmentVolume() + consignmentVol);
                 truckRepository.save(truck);
                 consignmentRepository.save(consignment);
                 break;
