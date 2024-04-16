@@ -70,4 +70,20 @@ public class ReportDetailServiceImpl implements ReportDetailsService {
         return bill;
     }
 
+    @Override
+    public String deleteAllBills() {
+        billRepository.deleteAll();
+        return "ALL BILLS ARE DELETED";
+    }
+
+    @Override
+    public String deleteBillsById(Integer id) throws Exception {
+        Optional<Bill> bill = billRepository.findById(id);
+        if(bill.isEmpty()){
+            throw new Exception("BILL NOT FOUND WITH ID : " + id);
+        }
+        billRepository.deleteById(id);
+        return "BILL WITH ID : " + id + " DELETED SUCCESSFULLY";
+    }
+
 }

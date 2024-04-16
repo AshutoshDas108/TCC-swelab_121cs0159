@@ -146,4 +146,10 @@ public class EmployeeServiceImpl  implements EmployeeService {
         return employeeRepository.findAll();
     }
 
+    @Override
+    public String deleteEmployees() {
+        employeeRepository.deleteAll();
+        return "All employees deleted successfully";
+    }
+
 }

@@ -21,6 +21,8 @@ public interface EmployeeService {
 
     public List<Employee> getAllEmployee();
 
+    public String deleteEmployees();
+
 
 
 }

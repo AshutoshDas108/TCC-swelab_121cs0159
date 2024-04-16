@@ -49,9 +49,16 @@ public class ConsignmentManagerController {
     }
 
 
-    @DeleteMapping("/delete-all")
+    @DeleteMapping("/delete/all")
     public ResponseEntity<String> deleteAllConsignments(){
         String resp  = consignmentService.deleteConsignments();
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteConsignmentById(@PathVariable Integer id) throws Exception {
+        String resp = consignmentService.deleteConsignmentById(id);
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 

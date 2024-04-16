@@ -20,4 +20,8 @@ public interface TruckService {
 
    public Truck assignTruckToBranch(Integer truckId, Integer branchId) throws Exception;
 
+   public String deleteAll();
+
+   public String deleteTruckById(Integer id) throws Exception;
+
 }

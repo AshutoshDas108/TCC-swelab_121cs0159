@@ -45,4 +45,10 @@ public class EmployeeManagerController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+    @DeleteMapping("/employees/delete")
+    public ResponseEntity<String> deleteAllEmp(){
+        String resp = employeeService.deleteEmployees();
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 }

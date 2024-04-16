@@ -34,4 +34,16 @@ public class TruckManagerController {
         return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/all")
+    public ResponseEntity<String> deleteAllTrucks(){
+        String resp = truckService.deleteAll();
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable Integer id) throws Exception {
+        String resp = truckService.deleteTruckById(id);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 }

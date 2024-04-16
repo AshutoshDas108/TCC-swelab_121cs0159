@@ -179,4 +179,20 @@ public class TruckServiceImpl implements TruckService {
         truckRepository.save(truck);
         return truck;
     }
+
+    @Override
+    public String deleteAll() {
+        truckRepository.deleteAll();
+        return ("ALL TRUCKS DATA DELETED");
+    }
+
+    @Override
+    public String deleteTruckById(Integer id) throws Exception {
+        Optional<Truck> truck = truckRepository.findById(id);
+        if(truck.isEmpty()){
+            throw new Exception("TRUCK NOT FOUND WITH ID : " + id);
+        }
+        truckRepository.deleteById(id);
+        return "TRUCK WITH ID : " + id + " IS DELETED";
+    }
 }

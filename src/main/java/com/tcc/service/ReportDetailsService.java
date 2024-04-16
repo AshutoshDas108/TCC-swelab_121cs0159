@@ -11,4 +11,6 @@ public interface ReportDetailsService {
     public Float calculateTotalReveneuGenerated(Integer truckId, Integer consId) throws Exception;
     public List<Bill> getAllBills();
     public Bill getBillById(Integer id) throws Exception;
+    public String deleteAllBills();
+    public String deleteBillsById(Integer id) throws Exception;
 }

@@ -96,6 +96,18 @@ public class BranchOfficeManagerController {
         return new ResponseEntity<>(officeDto, HttpStatus.OK);
     }
 
+    @DeleteMapping("delete/all")
+    public ResponseEntity<String> deleteAll(){
+        String resp = branchOfficeService.deleteAllOffices();
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable Integer id) throws Exception {
+        String resp = branchOfficeService.deleteOfficeById(id);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 
 
 

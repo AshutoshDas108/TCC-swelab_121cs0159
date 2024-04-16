@@ -272,4 +272,17 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         branchOfficeRepository.save(office);
         return  office;
     }
+
+    @Override
+    public String deleteAllOffices() {
+        branchOfficeRepository.deleteAll();
+        return "ALL BRANCH OFFICES ARE DELETED";
+    }
+
+    @Override
+    public String deleteOfficeById(Integer id) throws Exception {
+        BranchOffice office = getBranchOfficeById(id);
+        branchOfficeRepository.deleteById(id);
+        return "BRANCH OFFICE WITH ID : " + id + " DELETED SUCCESSFULLY";
+    }
 }

@@ -15,4 +15,6 @@ public interface BranchOfficeService {
     public  BranchOffice deleteConsignment (Integer branchId, Integer consId) throws Exception;
     public BranchOffice addEmployees(Integer branchId, Integer empId) throws Exception;
     public BranchOffice deleteEmployees(Integer branchId, Integer empId) throws Exception;
+    public String deleteAllOffices();
+    public String deleteOfficeById(Integer id) throws Exception;
 }

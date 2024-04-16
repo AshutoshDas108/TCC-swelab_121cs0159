@@ -131,13 +131,15 @@ public class ConsignmentServiceImpl implements ConsignmentService {
             Float consignmentVol = consignment.getVolume();
             if (availableVol >= consignmentVol) {
                 consignment.setTruck(truck);
-//                truck.setConsignmentVolume(load + consignmentVol);
-//                truck.setConsignmentReceived(consId);
+
 //                List<Integer> consignmentIds = new ArrayList<>();
 //                consignmentIds.add(consId);
 //                truck.setConsignmentIds(consignmentIds);
+
                 //truckService.addConsignment(truck.getTruckId(), consId);
+
                 truck.setConsignmentVolume(truck.getConsignmentVolume() + consignmentVol);
+                truck.getConsignmentIds().add(consId);
                 truckRepository.save(truck);
                 consignmentRepository.save(consignment);
                 break;
@@ -167,6 +169,13 @@ public class ConsignmentServiceImpl implements ConsignmentService {
         consignmentRepository.deleteAll();
         billRepository.deleteAll();
         return "ALL CONSIGNMENTS ARE DELETED";
+    }
+
+    @Override
+    public String deleteConsignmentById(Integer id) throws Exception {
+        Consignment consignment = getConsignmentDetailById(id);
+         consignmentRepository.deleteById(id);
+         return "CONSIGNMENT WITH ID : " + id + " IS DELETED";
     }
 
 
