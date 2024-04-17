@@ -28,7 +28,8 @@ public class Employee {
 
     private Integer branchOfficeId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+ @JoinColumn(name = "branchId", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private BranchOffice branchOffice;
 
     private Date dateOfJoining;

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -139,7 +140,14 @@ public class ConsignmentServiceImpl implements ConsignmentService {
                 //truckService.addConsignment(truck.getTruckId(), consId);
 
                 truck.setConsignmentVolume(truck.getConsignmentVolume() + consignmentVol);
-                truck.getConsignmentIds().add(consId);
+                if(truck.getConsignmentIds() != null) {
+                    truck.getConsignmentIds().add(consId);
+                }
+                else{
+                    List<Integer> consIds = new ArrayList<>();
+                    consIds.add(consId);
+                    truck.setConsignmentIds(consIds);
+                }
                 truckRepository.save(truck);
                 consignmentRepository.save(consignment);
                 break;

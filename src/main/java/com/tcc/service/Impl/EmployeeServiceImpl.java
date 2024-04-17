@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -111,7 +112,14 @@ public class EmployeeServiceImpl  implements EmployeeService {
         emp.setBranchOffice(office);
         emp.setBranchOfficeId(office.getBranchId());
 
-        office.getEmployees().add(emp);
+        if(office.getEmployees() != null) {
+            office.getEmployees().add(emp);
+        }
+        else{
+            List<Employee> employeeList = new ArrayList<>();
+            employeeList.add(emp);
+            office.setEmployees(employeeList);
+        }
 
         employeeRepository.save(emp);
         branchOfficeRepository.save(office);

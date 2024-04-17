@@ -41,14 +41,16 @@ public class Consignment {
     Details of the branchOffice to which
     the consignment had arrived
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "branchId", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private BranchOffice branchOffice;
 
     /*
     Which truck was assigned the
     consignment
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "truckId", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Truck truck;
 
     /*

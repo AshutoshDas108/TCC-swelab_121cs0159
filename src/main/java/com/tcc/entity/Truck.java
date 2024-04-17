@@ -58,6 +58,7 @@ public class Truck {
     is currently available
      */
     @ManyToOne
+    @JoinColumn(name = "branchId", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private BranchOffice branchOffice;
 
     /*

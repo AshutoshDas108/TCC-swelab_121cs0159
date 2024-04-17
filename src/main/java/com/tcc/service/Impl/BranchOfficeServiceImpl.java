@@ -107,6 +107,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         truck.setBranchOffice(office);
 
         branchOfficeRepository.save(office);
+        truckRepository.save(truck);
         return  office;
     }
 
@@ -140,6 +141,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
             throw new Exception("Truck doesn't exist in the branch");
         }
         branchOfficeRepository.save(office);
+        truckRepository.save(truck);
         return  office;
     }
 
@@ -171,6 +173,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         consg.setBranchOffice(office);
 
         branchOfficeRepository.save(office);
+        consignmentRepository.save(consg);
         return  office;
     }
 
@@ -205,6 +208,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         }
 
         branchOfficeRepository.save(office);
+        consignmentRepository.save(consg);
         return  office;
     }
 
@@ -237,6 +241,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
         employee.setBranchOffice(office);
 
         branchOfficeRepository.save(office);
+        employeeRepository.save(employee);
         return  office;
     }
 
@@ -270,6 +275,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
             throw new Exception("Employee doesn't exist in the branch Office");
         }
         branchOfficeRepository.save(office);
+        employeeRepository.save(employee);
         return  office;
     }
 

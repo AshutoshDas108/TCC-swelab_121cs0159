@@ -38,10 +38,10 @@ public class BranchOffice {
      */
 
     @JsonIgnore
-    @OneToMany(mappedBy = "branchOffice", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "branchOffice", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Consignment> consignments;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "branchOffice", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "branchOffice", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
 }
